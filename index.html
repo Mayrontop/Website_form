@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой первый сайт</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        nav {
+            padding: 10px;
+            background-color: #333;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        .site-title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #333;
+            color: white;
+            width: 100%;
+        }
+    
+        .feedback-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .feedback-form {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .required {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="page1.html">Викторина по программированию</a>
+            <a href="page2.html">Викторина по Java</a>
+            <a href="portfol.html">О мне</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <h1 class="site-title">Добро пожаловать на мой сайт!</h1>
+        <p>Это пример простого сайта, созданного с использованием HTML и CSS.</p>
+    </div>
+
+    <div class="feedback-container">
+        <div class="feedback-form">
+           <h1>Форма обратной связи</h1>
+<form id="feedbackForm">
+    <div class="form-group">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" required>
+        <div id="nameError" class="error"></div>
+    </div>
+    
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <div id="emailError" class="error"></div>
+    </div>
+    
+    <div class="form-group">
+        <label for="comment">Комментарий:</label>
+        <textarea id="comment" name="comment" required></textarea>
+        <div id="commentError" class="error"></div>
+    </div>
+    
+    <button type="submit">Отправить</button>
+</form>
+
+<div id="resultContainer"></div>
+
+<script>
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        document.querySelectorAll('.error').forEach(el => el.textContent = '');
+        document.getElementById('resultContainer').innerHTML = '';
+        
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const comment = document.getElementById('comment').value.trim();
+        
+        let isValid = true;
+        
+        if (name === '') {
+            document.getElementById('nameError').textContent = 'Пожалуйста, введите ваше имя';
+            isValid = false;
+        }
+        
+        if (email === '') {
+            document.getElementById('emailError').textContent = 'Пожалуйста, введите ваш email';
+            isValid = false;
+        } else if (!isValidEmail(email)) {
+            document.getElementById('emailError').textContent = 'Пожалуйста, введите корректный email';
+            isValid = false;
+        }
+        
+        if (comment === '') {
+            document.getElementById('commentError').textContent = 'Пожалуйста, введите ваш комментарий';
+            isValid = false;
+        }
+        
+        if (isValid) {
+            const resultHTML = `
+                <div class="success-message">
+                    <p>Спасибо, ${name}!</p>
+                    <p>Мы получили ваш комментарий:</p>
+                    <p><em>${comment}</em></p>
+                    <p>Ответ будет отправлен на email: ${email}</p>
+                </div>
+            `;
+            document.getElementById('resultContainer').innerHTML = resultHTML;
+            
+            this.reset();
+        }
+    });
+    
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+</script>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Мой первый сайт. Все права защищены.</p>
+    </footer>
+
+
+
+
+
+</body>
+</html>

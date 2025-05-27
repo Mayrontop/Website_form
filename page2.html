@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Викторина по Java</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .quiz-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .option:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        nav {
+            margin: 0;
+            padding: 10px;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <div class="question" id="question">Вопрос</div>
+        <div class="options" id="options">
+            <!-- Варианты ответов будут здесь -->
+        </div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Какой тип данных используется для хранения целых чисел в Java?",
+                options: ["int", "float", "String", "boolean"],
+                answer: "int"
+            },
+            {
+                question: "Какой оператор используется для сравнения двух значений в Java?",
+                options: ["=", "==", "===", "!="],
+                answer: "=="
+            },
+            {
+                question: "Какой метод используется для вывода текста в консоль в Java?",
+                options: ["print()", "log()", "System.out.println()", "console.log()"],
+                answer: "System.out.println()"
+            },
+            {
+                question: "Какой ключевой слово используется для создания цикла в Java?",
+                options: ["for", "loop", "while", "repeat"],
+                answer: "for"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const questionElement = document.getElementById("question");
+        const optionsElement = document.getElementById("options");
+        const resultElement = document.getElementById("result");
+
+        function loadQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+            optionsElement.innerHTML = "";
+
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.classList.add("option");
+                button.addEventListener("click", () => checkAnswer(option));
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedOption) {
+            const currentQuestion = questions[currentQuestionIndex];
+            if (selectedOption === currentQuestion.answer) {
+                score++;
+            }
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            questionElement.textContent = "Викторина завершена!";
+            optionsElement.innerHTML = "";
+            resultElement.textContent = `Ваш результат: ${score} из ${questions.length}`;
+        }
+
+        loadQuestion();
+    </script>
+<nav>
+    <a href="index.html">Главная</a>
+    <a href="page1.html">Викторина по HTML</a>
+</nav>
+</body>
+</html>
